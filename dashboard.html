@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h1 id="welcome-message">Welcome</h1>
+    <button id="subscribe-button">Subscribe to Xfinite Radio</button>
+    <button id="radio-channels-button">Radio Channels</button>
+    <button id="logout-button">Logout</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+  <!-- Add other Firebase services you are using, such as authentication or Firestore -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script> -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script> -->
+
+  <!-- Include Stripe JS script for client-side checkout -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <script>
+    // Replace this with your actual Firebase config object
+    var firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID",
+      measurementId: "YOUR_MEASUREMENT_ID"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+    // Check if the user is authenticated, and if not, redirect them to the login page
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = 'index.html';
+      } else {
+        // Get the user's email and display it on the dashboard
+        const welcomeMessage = document.getElementById('welcome-message');
+        welcomeMessage.textContent = `Welcome ${user.email}`;
+
+        // Get the buttons
+        const subscribeButton = document.getElementById('subscribe-button');
+        const radioChannelsButton = document.getElementById('radio-channels-button');
+        const logoutButton = document.getElementById('logout-button');
+
+        // Check if the user is a premium subscriber (you'll need to handle this with your backend logic)
+        const isPremiumSubscriber = false; // Set this based on your backend data
+
+        if (isPremiumSubscriber) {
+          subscribeButton.style.display = 'none'; // Hide the subscribe button
+          const premiumMessage = document.createElement('p');
+          premiumMessage.textContent = 'You are now a premium subscriber';
+          welcomeMessage.insertAdjacentElement('afterend', premiumMessage);
+        }
+
+        // Add event listener for the "Subscribe to Xfinite Radio" button
+        subscribeButton.addEventListener('click', () => {
+          // You'll need to implement the Stripe checkout logic here
+          // Once the user successfully subscribes, you can update the UI accordingly
+          // For now, we'll just display an alert message as a placeholder
+          alert('Implement Stripe checkout logic here to subscribe the user.');
+        });
+
+        // Add event listener for the "Radio Channels" button
+        radioChannelsButton.addEventListener('click', () => {
+          // Redirect the user to the specified URL (change it to the actual URL)
+          window.location.href = 'https://xfiniteradio.online';
+        });
+
+        // Add event listener for the "Logout" button
+        logoutButton.addEventListener('click', () => {
+          firebase.auth().signOut().then(() => {
+            // Redirect the user back to the login page after logout
+            window.location.href = 'index.html';
+          }).catch((error) => {
+            console.error('Logout Error:', error);
+          });
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
+

@@ -1,21 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/stackblitz-favicon-editor.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My first WebContainers app</title>
-  </head>
-  <body>
-    <header>
-      <h1>Hello, <span class="wc">WebContainers API</span>!</h1>
-      <p>
-        <a class="docs" href="https://webcontainers.io" target="_blank" rel="noreferrer noopener">
-          Read the docs 📖
-        </a>
-      </p>
-    </header>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <img src="your_logo.png" alt="Logo" class="logo">
+    <h1>Login</h1>
+    <form id="login-form">
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+
+      <div class="button-container">
+        <button type="button" id="clear-btn">Clear</button>
+        <button type="submit" id="submit-btn">Submit</button>
+      </div>
+
+      <div class="google-login-container">
+        <button type="button" id="google-login-btn">Login with Google</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+  <!-- Add other Firebase services you are using, such as Firestore or Storage -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script> -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-storage.js"></script> -->
+
+  <script src="index.js"></script>
+</body>
+
 </html>
